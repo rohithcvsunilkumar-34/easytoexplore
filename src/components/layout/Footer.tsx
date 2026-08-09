@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Compass, Mail, Phone, MapPin, Send, Instagram, Facebook, Twitter, Youtube, Shield, Award, Heart } from 'lucide-react';
+import { Compass, Mail, Phone, MapPin, Send, Globe, Share2, MessageCircle, Tv, Shield, Award, Heart } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
 export function Footer() {
@@ -127,17 +127,17 @@ export function Footer() {
               </div>
             </form>
             <div className="pt-2 flex items-center gap-3 text-slate-400">
-              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors">
-                <Instagram className="w-4 h-4" />
+              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors" title="Official Website">
+                <Globe className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors">
-                <Facebook className="w-4 h-4" />
+              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors" title="Social Community">
+                <Share2 className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors">
-                <Twitter className="w-4 h-4" />
+              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors" title="WhatsApp Support">
+                <MessageCircle className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors">
-                <Youtube className="w-4 h-4" />
+              <a href="#" className="p-2 rounded-lg bg-slate-900 hover:text-emerald-400 hover:bg-slate-800 transition-colors" title="Travel Vlogs">
+                <Tv className="w-4 h-4" />
               </a>
             </div>
           </div>
