@@ -1,81 +1,48 @@
 'use client';
 
 import React from 'react';
-import { Send, PhoneCall, ShieldCheck, Heart, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Send, PhoneCall, ShieldCheck } from 'lucide-react';
 import { Destination } from '@/types';
 import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/Button';
-import { formatCurrency } from '@/lib/utils';
 
 export function DetailBookingTrigger({ destination }: { destination: Destination }) {
-  const { openBookingDrawer, isWishlisted, toggleWishlist } = useApp();
-  const wishlisted = isWishlisted(destination.slug);
-
-  const primaryPackage = destination.packages[0];
+  const { openBookingDrawer } = useApp();
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xl space-y-6 sticky top-24">
-      {/* Price Header */}
-      <div className="pb-4 border-b border-slate-100 space-y-1">
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block">Starting From</span>
-        <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-black text-slate-900">{formatCurrency(destination.price)}</span>
-          <span className="text-xs text-slate-500 font-semibold">/ per person</span>
-        </div>
-        <p className="text-xs text-emerald-600 font-bold">100% Price Match & Zero Hidden Fees</p>
-      </div>
-
-      {/* Package Summary */}
-      {primaryPackage && (
-        <div className="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/60">
-          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">Included Perks</span>
-          <div className="space-y-2 text-xs text-slate-700 font-semibold">
-            {primaryPackage.inclusions.map((inc, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>{inc}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Buttons */}
-      <div className="space-y-3">
-        <Button
-          onClick={() => openBookingDrawer(destination.slug, primaryPackage?.id)}
-          size="lg"
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 shadow-lg shadow-emerald-600/30"
-        >
-          <Send className="w-4 h-4" /> Book Inquiry Now
-        </Button>
-
-        <button
-          onClick={() => toggleWishlist(destination.slug)}
-          className={`w-full py-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
-            wishlisted
-              ? 'bg-rose-50 text-rose-700 border-rose-200'
-              : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
-          }`}
-        >
-          <Heart className={`w-4 h-4 ${wishlisted ? 'fill-rose-600 text-rose-600' : ''}`} />
-          {wishlisted ? 'Saved in Wishlist' : 'Add to Wishlist'}
-        </button>
-      </div>
-
-      {/* Trust & Assistance */}
-      <div className="space-y-3 pt-2 text-xs text-slate-500">
-        <div className="flex items-start gap-2 bg-emerald-50/60 p-3 rounded-xl border border-emerald-100 text-emerald-800">
-          <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-          <span>Instant custom quote sent to your WhatsApp within 2 hours.</span>
+    <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-xl border border-slate-800 text-center space-y-6">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      
+      <div className="relative z-10 space-y-4 max-w-2xl mx-auto">
+        <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+          Ready to Explore {destination.name}?
+        </h3>
+        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Get in touch with our travel experts to get a personalized itinerary and custom quote for your dream trip.
+        </p>
+        
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button
+            onClick={() => openBookingDrawer(destination.slug)}
+            size="lg"
+            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-8 shadow-lg shadow-emerald-600/30"
+          >
+            <Send className="w-4 h-4 mr-2" /> Plan Your Trip
+          </Button>
+          
+          <a
+            href="tel:+919876543210"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-slate-700 bg-slate-950 text-slate-200 hover:text-white font-bold transition-all text-sm"
+          >
+            <PhoneCall className="w-4 h-4 text-emerald-500" /> +91 98765 43210
+          </a>
         </div>
 
-        <a
-          href="tel:+919876543210"
-          className="flex items-center justify-center gap-2 text-xs font-bold text-slate-800 hover:text-emerald-600 transition-colors pt-1"
-        >
-          <PhoneCall className="w-4 h-4 text-emerald-600" /> Need Help? Call +91 98765 43210
-        </a>
+        <div className="pt-6 flex items-center justify-center gap-2 text-xs text-slate-400">
+          <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+          <span>Instant custom quote sent to your WhatsApp/Email within 2 hours.</span>
+        </div>
       </div>
     </div>
   );

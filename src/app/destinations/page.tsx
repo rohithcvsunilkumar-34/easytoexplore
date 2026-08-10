@@ -16,7 +16,7 @@ function DestinationsContent() {
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showMobileFilter, setShowMobileFilter] = useState(false);
-  const [sortBy, setSortBy] = useState<'popularity' | 'price-asc' | 'price-desc' | 'rating'>('popularity');
+  const [sortBy, setSortBy] = useState<'popularity' | 'name-asc'>('popularity');
 
   const isWishlistOnly = searchParams.get('wishlist') === 'true';
   const categoryParam = searchParams.get('category');
@@ -62,14 +62,6 @@ function DestinationsContent() {
       result = result.filter((d) => d.category === filters.category);
     }
 
-    if (filters.maxPrice) {
-      result = result.filter((d) => d.price <= filters.maxPrice);
-    }
-
-    if (filters.minRating && filters.minRating > 0) {
-      result = result.filter((d) => d.rating >= filters.minRating);
-    }
-
     if (filters.duration && filters.duration !== 'All') {
       if (filters.duration === 'Short (1-4 Days)') {
         result = result.filter((d) => d.durationDays <= 4);
@@ -81,12 +73,8 @@ function DestinationsContent() {
     }
 
     // Sorting
-    if (sortBy === 'price-asc') {
-      result.sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'price-desc') {
-      result.sort((a, b) => b.price - a.price);
-    } else if (sortBy === 'rating') {
-      result.sort((a, b) => b.rating - a.rating);
+    if (sortBy === 'name-asc') {
+      result.sort((a, b) => a.name.localeCompare(b.name));
     } else {
       result.sort((a, b) => b.reviewsCount - a.reviewsCount);
     }
@@ -108,7 +96,7 @@ function DestinationsContent() {
               {isWishlistOnly ? 'Saved Travel Wishlist' : 'Discover Extraordinary Destinations'}
             </h1>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Filter by region, travel style, budget & trip duration to find your perfect custom holiday itinerary.
+              Filter by region, travel style & trip duration to discover extraordinary getaways.
             </p>
           </div>
         </div>
@@ -144,9 +132,7 @@ function DestinationsContent() {
                 className="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
               >
                 <option value="popularity">Most Popular</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
+                <option value="name-asc">Name (A-Z)</option>
               </select>
             </div>
 

@@ -1,10 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Filter, Search, RotateCcw, SlidersHorizontal, MapPin, DollarSign, Calendar, Star, Sparkles } from 'lucide-react';
+import { SlidersHorizontal, MapPin, Calendar, Sparkles, Search, RotateCcw } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
-import { Button } from '@/components/ui/Button';
-import { formatCurrency } from '@/lib/utils';
 
 export function FilterSidebar() {
   const { filters, setFilters, resetFilters } = useApp();
@@ -36,7 +34,7 @@ export function FilterSidebar() {
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
           <input
             type="text"
-            placeholder="e.g. Kashmir, Snow, Scuba..."
+            placeholder="e.g. Kashmir, Snow, Safari..."
             value={filters.search}
             onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
             className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
@@ -94,27 +92,6 @@ export function FilterSidebar() {
         </div>
       </div>
 
-      {/* Budget Range Slider */}
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Max Budget</label>
-          <span className="text-sm font-extrabold text-emerald-600">{formatCurrency(filters.maxPrice)}</span>
-        </div>
-        <input
-          type="range"
-          min="8000"
-          max="40000"
-          step="1000"
-          value={filters.maxPrice}
-          onChange={(e) => setFilters((prev) => ({ ...prev, maxPrice: Number(e.target.value) }))}
-          className="w-full accent-emerald-600 cursor-pointer"
-        />
-        <div className="flex justify-between text-[11px] font-semibold text-slate-400 mt-1">
-          <span>₹8,000</span>
-          <span>₹40,000+</span>
-        </div>
-      </div>
-
       {/* Duration Filter */}
       <div>
         <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5 flex items-center gap-1">
@@ -134,23 +111,6 @@ export function FilterSidebar() {
             </label>
           ))}
         </div>
-      </div>
-
-      {/* Minimum Rating */}
-      <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1">
-          <Star className="w-3.5 h-3.5 text-amber-500" /> Rating Threshold
-        </label>
-        <select
-          value={filters.minRating}
-          onChange={(e) => setFilters((prev) => ({ ...prev, minRating: Number(e.target.value) }))}
-          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
-        >
-          <option value={0}>All Ratings</option>
-          <option value={4.5}>4.5 Stars & Above</option>
-          <option value={4.8}>4.8 Stars & Above (Top Rated)</option>
-          <option value={4.9}>4.9+ Stars (Highest Customer Choice)</option>
-        </select>
       </div>
     </aside>
   );

@@ -2,14 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Star, Clock, MapPin, Heart, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Clock, MapPin, Heart, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Destination } from '@/types';
 import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { formatCurrency } from '@/lib/utils';
 
 interface DestinationCardProps {
   destination: Destination;
@@ -17,7 +15,7 @@ interface DestinationCardProps {
 }
 
 export function DestinationCard({ destination, viewMode = 'grid' }: DestinationCardProps) {
-  const { isWishlisted, toggleWishlist, openBookingDrawer } = useApp();
+  const { isWishlisted, toggleWishlist } = useApp();
   const wishlisted = isWishlisted(destination.slug);
 
   if (viewMode === 'list') {
@@ -61,11 +59,6 @@ export function DestinationCard({ destination, viewMode = 'grid' }: DestinationC
               <span className="text-xs font-semibold text-slate-500 flex items-center gap-1">
                 <MapPin className="w-3.5 h-3.5 text-emerald-600" /> {destination.region}
               </span>
-              <div className="flex items-center gap-1 text-xs font-bold text-slate-900 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200/60">
-                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                <span>{destination.rating}</span>
-                <span className="text-slate-400 font-normal">({destination.reviewsCount})</span>
-              </div>
             </div>
 
             <Link href={`/destinations/${destination.slug}`}>
@@ -89,21 +82,16 @@ export function DestinationCard({ destination, viewMode = 'grid' }: DestinationC
 
           {/* Footer Bar */}
           <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-            <div>
-              <span className="text-[11px] uppercase font-bold tracking-wider text-slate-400 block">Starting From</span>
-              <span className="text-xl font-black text-slate-900">{formatCurrency(destination.price)}</span>
-              <span className="text-xs text-slate-500 font-normal"> / person</span>
-            </div>
+            <span className="text-xs font-medium text-slate-400 flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-slate-400" /> {destination.duration}
+            </span>
 
             <div className="flex items-center gap-2">
               <Link href={`/destinations/${destination.slug}`}>
-                <Button variant="outline" size="sm">
-                  View Details
+                <Button className="bg-slate-900 hover:bg-emerald-600 text-white font-semibold flex items-center gap-1" size="sm">
+                  Explore <ArrowRight className="w-3.5 h-3.5" />
                 </Button>
               </Link>
-              <Button onClick={() => openBookingDrawer(destination.slug)} size="sm">
-                Book Inquiry
-              </Button>
             </div>
           </div>
         </div>
@@ -134,7 +122,7 @@ export function DestinationCard({ destination, viewMode = 'grid' }: DestinationC
           <button
             onClick={() => toggleWishlist(destination.slug)}
             className={`p-2 rounded-full shadow-lg backdrop-blur-md transition-transform active:scale-90 ${
-              wishlisted ? 'bg-rose-500 text-white' : 'bg-slate-900/60 hover:bg-slate-900 text-white'
+              wishlisted ? 'bg-rose-50 text-white' : 'bg-slate-900/60 hover:bg-slate-900 text-white'
             }`}
             aria-label="Wishlist"
           >
@@ -161,11 +149,7 @@ export function DestinationCard({ destination, viewMode = 'grid' }: DestinationC
       <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-medium text-slate-500 truncate max-w-[200px]">{destination.subtitle}</span>
-            <div className="flex items-center gap-1 text-xs font-bold text-slate-900 bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-200/60 shrink-0">
-              <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              <span>{destination.rating}</span>
-            </div>
+            <span className="text-xs font-medium text-slate-500 truncate">{destination.subtitle}</span>
           </div>
 
           <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">{destination.description}</p>
@@ -180,14 +164,9 @@ export function DestinationCard({ destination, viewMode = 'grid' }: DestinationC
           </div>
         </div>
 
-        {/* Pricing & CTA Footer */}
+        {/* Explore Footer */}
         <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-          <div>
-            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Starting From</span>
-            <div className="flex items-baseline gap-1">
-              <span className="text-lg font-black text-slate-900">{formatCurrency(destination.price)}</span>
-            </div>
-          </div>
+          <span className="text-xs font-medium text-slate-400">{destination.duration}</span>
 
           <Link href={`/destinations/${destination.slug}`}>
             <Button size="sm" className="bg-slate-900 hover:bg-emerald-600 text-white font-semibold">
