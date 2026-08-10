@@ -27,8 +27,8 @@ export default async function HomePage() {
       {/* Why Choose Us 4-Column Value Grid */}
       <WhyChooseUs />
 
-      {/* Popular Tour Packages */}
-      <PopularPackages packages={packages} />
+      {/* Popular Tour Packages (Hidden for now, can be enabled for future scaling) */}
+      {/* <PopularPackages packages={packages} /> */}
 
       {/* Travel Styles Categories */}
       <CategorySection categories={categories} />

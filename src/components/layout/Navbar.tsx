@@ -31,7 +31,7 @@ export function Navbar() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Destinations', href: '/destinations' },
-    { name: 'Tour Packages', href: '/packages' },
+    // { name: 'Tour Packages', href: '/packages' }, // Hidden for now, can be re-enabled later
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -122,7 +122,7 @@ export function Navbar() {
               size="md"
               className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold shadow-md shadow-emerald-500/20"
             >
-              Explore Packages <ArrowRight className="w-4 h-4" />
+              Plan Your Trip <ArrowRight className="w-4 h-4" />
             </Button>
           </div>
 
@@ -216,7 +216,7 @@ export function Navbar() {
               size="lg"
               className="w-full bg-emerald-500 text-slate-950 font-bold"
             >
-              Explore Packages
+              Plan Your Trip
             </Button>
           </div>
         </div>

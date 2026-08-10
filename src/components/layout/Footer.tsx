@@ -56,11 +56,11 @@ export function Footer() {
                   All Destinations
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/packages" className="hover:text-emerald-400 transition-colors">
                   Tour Packages
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/about" className="hover:text-emerald-400 transition-colors">
                   About Our Story
