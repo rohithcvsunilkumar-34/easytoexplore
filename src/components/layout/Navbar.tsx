@@ -62,14 +62,8 @@ export function Navbar() {
             <img
               src="/logo1.png"
               alt="EasyToExplore"
-              className="w-10 h-10 object-contain rounded-xl shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform bg-emerald-500/10 p-0.5"
+              className="w-28 h-28 object-contain rounded-xl  group-hover:scale-105 transition-transform"
             />
-            <div className="flex flex-col">
-              <span className="text-xl font-black tracking-tight text-white flex items-center gap-1">
-                Easy<span className="text-emerald-400">To</span>Explore
-              </span>
-              <span className="text-[10px] tracking-widest uppercase font-medium text-slate-300">Premium Travel Journeys</span>
-            </div>
           </Link>
 
           {/* Desktop Navigation Links */}
