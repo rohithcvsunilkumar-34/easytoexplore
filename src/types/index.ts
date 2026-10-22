@@ -99,3 +99,10 @@ export interface BookingInquiry {
   packageId?: string;
   specialRequests?: string;
 }
+
+export interface ContactMessage {
+  fullName: string;
+  email: string;
+  phone: string;
+  message: string;
+}

@@ -1,5 +1,5 @@
 import { destinationsData, categoriesData, reviewsData } from '@/data/destinations';
-import { Destination, Category, Review, Package, FilterState, BookingInquiry } from '@/types';
+import { Destination, Category, Review, Package, FilterState, BookingInquiry, ContactMessage } from '@/types';
 
 // Simulate network latency for realistic API abstraction
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -96,11 +96,27 @@ export async function getReviews(): Promise<Review[]> {
   return reviewsData;
 }
 
+async function postInquiry(payload: Record<string, unknown>): Promise<{ success: boolean; message: string }> {
+  const res = await fetch('/api/inquiry', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.success) {
+    throw new Error(data.error || 'Failed to submit inquiry');
+  }
+  return data;
+}
+
 export async function submitInquiry(inquiry: BookingInquiry): Promise<{ success: boolean; message: string }> {
-  await delay(400);
-  console.log('Inquiry submitted to server mock:', inquiry);
+  const res = await postInquiry({ source: 'booking', ...inquiry });
   return {
     success: true,
-    message: `Thank you, ${inquiry.fullName}! Your booking inquiry for ${inquiry.destinationSlug || 'your trip'} has been received. Our travel expert will contact you within 2 hours.`,
+    message: res.message || `Thank you, ${inquiry.fullName}! Your booking inquiry for ${inquiry.destinationSlug || 'your trip'} has been received. Our travel expert will contact you within 2 hours.`,
   };
+}
+
+export async function submitContactMessage(contact: ContactMessage): Promise<{ success: boolean; message: string }> {
+  return postInquiry({ source: 'contact', ...contact });
 }

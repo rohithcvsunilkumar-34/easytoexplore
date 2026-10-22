@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, HelpCircle, ChevronDown } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/Button';
+import { submitContactMessage } from '@/lib/api';
 
 export default function ContactPage() {
   const { showToast } = useApp();
@@ -35,17 +36,21 @@ export default function ContactPage() {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitContactMessage({ fullName: name, email, phone, message });
       showToast('Thank you! Your message has been sent. We will respond within 2 hours.');
       setName('');
       setEmail('');
       setPhone('');
       setMessage('');
-    }, 600);
+    } catch {
+      showToast('Sorry, your message could not be sent. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
